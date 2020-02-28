@@ -35,7 +35,7 @@ func NewLineGraph() *LineGraph {
 }
 
 func (self *LineGraph) Draw(buf *Buffer) {
-	self.Block.Draw(buf)
+	// self.Block.Draw(buf)
 	// we render each data point on to the canvas then copy over the braille to the buffer at the end
 	// fyi braille characters have 2x4 dots for each character
 	c := drawille.NewCanvas()
@@ -68,7 +68,7 @@ func (self *LineGraph) Draw(buf *Buffer) {
 		// assign colors to `colors` and lines/points to the canvas
 		for i := len(seriesData) - 1; i >= 0; i-- {
 			x := ((self.Inner.Dx() + 1) * 2) - 1 - (((len(seriesData) - 1) - i) * self.HorizontalScale)
-			y := ((self.Inner.Dy() + 1) * 4) - 1 - int((float64((self.Inner.Dy())*4)-1)*(seriesData[i]/100))
+			y := ((self.Inner.Dy() + 1) * 4) - 1 - int((float64((self.Inner.Dy())*4))*(seriesData[i]/100))
 			if x < 0 {
 				// render the line to the last point up to the wall
 				if x > 0-self.HorizontalScale {
@@ -126,7 +126,7 @@ func (self *LineGraph) Draw(buf *Buffer) {
 			if char != ' ' {
 				buf.SetCell(
 					NewCell(char, NewStyle(seriesLineColor)),
-					image.Pt(self.Inner.Min.X+2+k, self.Inner.Min.Y+i+1),
+					image.Pt(self.Inner.Min.X+2+k, self.Inner.Min.Y+i),
 				)
 			}
 		}

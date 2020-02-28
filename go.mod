@@ -16,3 +16,5 @@ require (
 	golang.org/x/sys v0.0.0-20190116161447-11f53e031339 // indirect
 	howett.net/plist v0.0.0-20181124034731-591f970eefbb // indirect
 )
+
+go 1.13

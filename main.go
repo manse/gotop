@@ -9,7 +9,6 @@ import (
 	"os/signal"
 	"path/filepath"
 	"sort"
-	"strconv"
 	"syscall"
 	"time"
 
@@ -26,7 +25,7 @@ const (
 	appName = "gotop"
 	version = "3.0.0"
 
-	graphHorizontalScaleDelta = 3
+	graphHorizontalScaleDelta = 1
 )
 
 var (
@@ -36,7 +35,7 @@ var (
 
 	stderrLogger = log.New(os.Stderr, "", 0)
 
-	graphHorizontalScale = 7
+	graphHorizontalScale = 1
 	helpVisible          = false
 
 	colorscheme    = colorschemes.Default
@@ -104,16 +103,17 @@ Colorschemes:
 
 	statusbar, _ = args["--statusbar"].(bool)
 
-	rateStr, _ := args["--rate"].(string)
-	rate, err := strconv.ParseFloat(rateStr, 64)
-	if err != nil {
-		return fmt.Errorf("invalid rate parameter")
-	}
-	if rate < 1 {
-		updateInterval = time.Second * time.Duration(1/rate)
-	} else {
-		updateInterval = time.Second / time.Duration(rate)
-	}
+	// rateStr, _ := args["--rate"].(string)
+	// rate, err := strconv.ParseFloat(rateStr, 64)
+	// if err != nil {
+	// 	return fmt.Errorf("invalid rate parameter")
+	// }
+	// if rate < 1 {
+	// 	updateInterval = time.Second * time.Duration(1/rate)
+	// } else {
+	// 	updateInterval = time.Second / time.Duration(rate)
+	// }
+	updateInterval = time.Second * time.Duration(6.0)
 	fahrenheit, _ := args["--fahrenheit"].(bool)
 	if fahrenheit {
 		tempScale = w.Fahrenheit
@@ -163,13 +163,10 @@ func getCustomColorscheme(name string) (colorschemes.Colorscheme, error) {
 func setupGrid() {
 	grid = ui.NewGrid()
 
-	if minimalMode {
+	if true {
 		grid.Set(
-			ui.NewRow(1.0/2, cpu),
-			ui.NewRow(1.0/2,
-				ui.NewCol(1.0/2, mem),
-				ui.NewCol(1.0/2, proc),
-			),
+			ui.NewCol(1.0/2, cpu),
+			ui.NewCol(1.0/2, net),
 		)
 	} else {
 		var cpuRow ui.GridItem
@@ -247,12 +244,12 @@ func setWidgetColors() {
 
 		temp.TempLowColor = ui.Color(colorscheme.TempLow)
 		temp.TempHighColor = ui.Color(colorscheme.TempHigh)
-
-		net.Lines[0].LineColor = ui.Color(colorscheme.Sparkline)
-		net.Lines[0].TitleColor = ui.Color(colorscheme.BorderLabel)
-		net.Lines[1].LineColor = ui.Color(colorscheme.Sparkline)
-		net.Lines[1].TitleColor = ui.Color(colorscheme.BorderLabel)
 	}
+	net.Lines[0].LineColor = ui.Color(colorscheme.Sparkline)
+	net.Lines[0].TitleColor = ui.Color(colorscheme.BorderLabel)
+	net.Lines[1].LineColor = ui.Color(colorscheme.Sparkline)
+	net.Lines[1].TitleColor = ui.Color(colorscheme.BorderLabel)
+
 }
 
 func initWidgets() {

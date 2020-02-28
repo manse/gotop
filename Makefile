@@ -9,7 +9,7 @@ ARCHIVE="gotop_$(VERSION)_linux_amd64"
 all: dist/gotop.rpm dist/gotop.deb
 
 dist/gotop:
-	@GOOS=linux GOARCH=amd64 go build -o $@
+	@GOOS=darwin GOARCH=amd64 go build -o $@
 
 dist:
 	@mkdir $@

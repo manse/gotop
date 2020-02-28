@@ -44,7 +44,7 @@ func NewTable() *Table {
 }
 
 func (self *Table) Draw(buf *Buffer) {
-	self.Block.Draw(buf)
+	// self.Block.Draw(buf)
 
 	if self.ShowLocation {
 		self.drawLocation(buf)

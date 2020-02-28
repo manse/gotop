@@ -41,7 +41,7 @@ func NewSparklineGroup(ss ...*Sparkline) *SparklineGroup {
 }
 
 func (self *SparklineGroup) Draw(buf *Buffer) {
-	self.Block.Draw(buf)
+	// self.Block.Draw(buf)
 
 	lc := len(self.Lines) // lineCount
 
@@ -49,8 +49,8 @@ func (self *SparklineGroup) Draw(buf *Buffer) {
 	for i, line := range self.Lines {
 
 		// prints titles
-		title1Y := self.Inner.Min.Y + 1 + (self.Inner.Dy()/lc)*i
-		title2Y := self.Inner.Min.Y + 2 + (self.Inner.Dy()/lc)*i
+		title1Y := self.Inner.Min.Y + (self.Inner.Dy()/lc)*i
+		title2Y := self.Inner.Min.Y + 1 + (self.Inner.Dy()/lc)*i
 		title1 := TrimString(line.Title1, self.Inner.Dx())
 		title2 := TrimString(line.Title2, self.Inner.Dx())
 		if self.Inner.Dy() > 5 {

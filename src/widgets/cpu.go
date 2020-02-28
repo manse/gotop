@@ -33,7 +33,7 @@ func NewCpuWidget(updateInterval time.Duration, horizontalScale int, showAverage
 	self := &CpuWidget{
 		LineGraph:       ui.NewLineGraph(),
 		CpuCount:        cpuCount,
-		updateInterval:  updateInterval,
+		updateInterval:  time.Second * 6.0,
 		ShowAverageLoad: showAverageLoad,
 		ShowPerCpuLoad:  showPerCpuLoad,
 		formatString:    formatString,

@@ -38,7 +38,7 @@ func NewNetWidget(netInterface string) *NetWidget {
 	spark := ui.NewSparklineGroup(recvSparkline, sentSparkline)
 	self := &NetWidget{
 		SparklineGroup: spark,
-		updateInterval: time.Second,
+		updateInterval: time.Second * 6.0,
 		NetInterface:   netInterface,
 	}
 	self.Title = " Network Usage "
